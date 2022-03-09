@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require_relative './lib/player'
 
 class BattleApp < Sinatra::Base
   enable :sessions
@@ -13,21 +14,15 @@ class BattleApp < Sinatra::Base
     erb :index
   end
 
-  # Change this to use the session hash
   post '/player-names' do
-    session[:player1_name] = params[:player1_name]
-    session[:player2_name] = params[:player2_name]
+    session[:player1] = Player.new(params[:player1_name])
+    session[:player2] = Player.new(params[:player2_name])
     redirect '/play'
   end
 
-  # Get Route for the play screen
   get '/play' do
-    @player1_name = session[:player1_name]
-    @player2_name = session[:player2_name]
-    session[:player1_score] = HitPoints.new
-    session[:player2_score] = HitPoints.new
-    @player1_score = session[:player1_score].count
-    @player2_score = session[:player2_score].count
+    @player1 = session[:player1]
+    @player2 = session[:player2]
     erb :play
   end
 
