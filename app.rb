@@ -23,7 +23,13 @@ class BattleApp < Sinatra::Base
   get '/play' do
     @player1 = session[:player1]
     @player2 = session[:player2]
+    @alert_message = session[:alert_message]
     erb :play
+  end
+
+  post '/attack' do
+    session[:alert_message] = 'Player 1 has attacked Player 2'
+    redirect '/play'
   end
 
   # Start the server if the file is executed directly
