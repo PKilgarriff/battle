@@ -2,7 +2,9 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 
 class BattleApp < Sinatra::Base
-  configure :development do
+  enable :sessions
+
+  configure :test do
     register Sinatra::Reloader
   end
 
@@ -11,10 +13,19 @@ class BattleApp < Sinatra::Base
     erb :index
   end
 
-  post '/welcome-players' do
-    @player1_name = params[:player1_name]
-    @player2_name = params[:player2_name]
-    erb :welcome_players
+  # Change this to use the session hash
+  post '/player-names' do
+    session[:player1_name] = params[:player1_name]
+    session[:player2_name] = params[:player2_name]
+    redirect '/play'
+  end
+
+  # Get Route for the play screen
+  # access the session hash to then pass to welcome_players.erb
+  get '/play' do
+    @player1_name = session[:player1_name]
+    @player2_name = session[:player2_name]
+    erb :play
   end
 
   # Start the server if the file is executed directly
