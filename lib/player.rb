@@ -11,4 +11,8 @@ class Player
   def hit_points
     @hit_points.count
   end
+
+  def take_hit(number)
+    @hit_points.decrease(number)
+  end
 end

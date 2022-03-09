@@ -15,20 +15,23 @@ class BattleApp < Sinatra::Base
   end
 
   post '/player-names' do
-    session[:player1] = Player.new(params[:player1_name])
-    session[:player2] = Player.new(params[:player2_name])
+    $player1 = Player.new(params[:player1_name])
+    $player2 = Player.new(params[:player2_name])
     redirect '/play'
   end
 
   get '/play' do
-    @player1 = session[:player1]
-    @player2 = session[:player2]
+    @player1 = $player1
+    @player2 = $player2
     @alert_message = session[:alert_message]
     erb :play
   end
 
   post '/attack' do
-    session[:alert_message] = 'Player 1 has attacked Player 2'
+    @player1 = $player1
+    @player2 = $player2
+    @player2.take_hit(10)
+    session[:alert_message] = "#{@player1.name} has attacked #{@player2.name}"
     redirect '/play'
   end
 

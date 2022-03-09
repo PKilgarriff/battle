@@ -1,7 +1,7 @@
 <html>
   <h1>Welcome <%= @player1.name %> and <%= @player2.name%>!</h1>
-  <p><%= @player1.name %> - your score is <%= @player1.hit_points %> </p>
-  <p><%= @player2.name %> - your score is <%= @player2.hit_points %> </p>
+  <p><%= @player1.name %> HP: <%= @player1.hit_points %> </p>
+  <p><%= @player2.name %> HP: <%= @player2.hit_points %> </p>
   <div>
     <form action='/attack' method='post'>
       <button type="submit" value="Attack">Attack</button>>

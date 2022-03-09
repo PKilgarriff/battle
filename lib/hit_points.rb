@@ -6,4 +6,7 @@ class HitPoints
     @count = count
   end
   
+  def decrease(number)
+    @count -= number
+  end
 end

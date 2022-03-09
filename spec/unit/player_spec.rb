@@ -16,4 +16,12 @@ describe Player do
     end
   end
 
+  describe '#take_hit' do
+    it 'reduces hit points by the number given' do
+      hp_spy = spy(:hp_spy)
+      player1 = Player.new('Dave', hp_spy)
+      player1.take_hit(10)
+      expect(hp_spy).to have_received(:decrease).with(10)
+    end
+  end
 end
