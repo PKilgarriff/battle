@@ -21,10 +21,13 @@ class BattleApp < Sinatra::Base
   end
 
   # Get Route for the play screen
-  # access the session hash to then pass to welcome_players.erb
   get '/play' do
     @player1_name = session[:player1_name]
     @player2_name = session[:player2_name]
+    session[:player1_score] = HitPoints.new
+    session[:player2_score] = HitPoints.new
+    @player1_score = session[:player1_score].count
+    @player2_score = session[:player2_score].count
     erb :play
   end
 
