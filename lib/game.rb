@@ -13,6 +13,14 @@ class Game
     @players << @player_template.new(name)
   end
 
+  def attack(player2)
+    player2.take_hit(10)
+  end
+
+  def reset_players
+    @players = []
+  end
+
   def self.instance(player_class = Player)
     @game ||= Game.new(player_class)
   end
