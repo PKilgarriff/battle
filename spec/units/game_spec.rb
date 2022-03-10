@@ -2,6 +2,7 @@ require 'game'
 
 describe Game do
   let(:player_class) { double(:player_class) }
+  let(:player) { double(:player) }
   subject(:game) { Game.new(player_class) }
  
   it 'creates a new Game with 2 players' do
@@ -10,9 +11,14 @@ describe Game do
 
   describe '#attack' do
     it 'allows a player to attack another player' do
+      player1 = double(:player1_double)
+      allow(player_class).to receive(:new).with("Dave").and_return(player1)
       player2 = double(:player2_double)
+      allow(player_class).to receive(:new).with("Bob").and_return(player2)
+      game.new_player("Dave")
+      game.new_player("Bob")
       expect(player2).to receive(:take_hit).with(10)
-      game.attack(player2)
+      game.attack
     end
   end
 
@@ -44,4 +50,15 @@ describe Game do
       expect(game.players).to eq []
     end
   end
+
+  describe '#switch_players' do
+    it 'switches the order in the players array' do
+      allow(player_class).to receive(:new).with("Dave").and_return("Dave")
+      player1 = game.new_player('Dave')
+      allow(player_class).to receive(:new).with("Bob").and_return("Bob")
+      player2 = game.new_player('Bob')
+      expect(game.switch_players).to eq (["Bob", "Dave"])
+    end
+  end
+
 end

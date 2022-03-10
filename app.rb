@@ -35,7 +35,7 @@ class BattleApp < Sinatra::Base
   post '/attack' do
     @player1 = @game.players[0]
     @player2 = @game.players[1]
-    @game.attack(@player2)
+    @game.attack
     session[:alert_message] = "#{@player1.name} has attacked #{@player2.name}"
     redirect '/play'
   end

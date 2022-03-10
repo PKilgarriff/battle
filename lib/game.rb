@@ -13,12 +13,19 @@ class Game
     @players << @player_template.new(name)
   end
 
-  def attack(player2)
-    player2.take_hit(10)
+  def attack
+    p @players[1]
+    defender = @players[1]
+    defender.take_hit(10)
+    switch_players
   end
 
   def reset_players
     @players = []
+  end
+
+  def switch_players
+    @players.reverse!
   end
 
   def self.instance(player_class = Player)
