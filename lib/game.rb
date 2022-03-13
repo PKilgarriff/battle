@@ -14,7 +14,6 @@ class Game
   end
 
   def attack
-    p @players[1]
     defender = @players[1]
     defender.take_hit(10)
     switch_players
